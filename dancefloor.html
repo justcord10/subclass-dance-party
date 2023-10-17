@@ -3,14 +3,29 @@
   <head>
     <title>Object Dance Party</title>
     <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Play:wght@700&family=Russo+One&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
     <script src="src/dancer.js"></script>
     <script src="src/blinkyDancer.js"></script>
+    <script src="src/slideDancer.js"></script>
+    <script src="src/bouncyDancer.js"></script>
   </head>
   <body>
-    <div class="topbar">
-      <span class="title">object dance party</span>
-      <a href="#" class="addDancerButton" data-dancer-maker-function-name="makeBlinkyDancer">add a blinky dancer</a>    </div>
-    <script src="src/init.js"></script>
+    <div class="header">
+      <h1 class="title">MARVEL MOVES</h1>
+      <div class="topbar">
+        <div class="button-container">
+          <button href="#" class="addDancerButton" data-dancer-maker-function-name="MakeBlinkyDancer">BLINKY DANCER</button>
+          <button href="#" class="addDancerButton" data-dancer-maker-function-name="MakeSlideDancer">SLIDE DANCER</button>
+          <button href="#" class="addDancerButton" data-dancer-maker-function-name="MakeBouncyDancer">BOUNCY DANCER</button>
+        </div>
+        <div class="button-container">
+          <button href="#" class="interactButton" id="assemble" data-dancer-maker-function-name="MakeBouncyDancer">ASSEMBLE</button>
+          <button href="#" class="interactButton" id='civil-war'>CIVIL WAR</button>
+        </div>
+        <script src="src/init.js"></script>
+        </div>
+    </div>
+    <div class="dancefloor"></div>
   </body>
 </html>
