@@ -1,5 +1,6 @@
 $(document).ready(function() {
   window.dancers = [];
+  window.lights = [];
 
   const makeDancer = (dancerType) => {
     var dancer = new dancerType(
@@ -28,10 +29,41 @@ $(document).ready(function() {
     window.dancers.push(dancer);
   };
 
+  $('#lights').on('click', function(event) {
+    if (window.lights.length < 1) {
+
+      for (let i = 0; i < 5; i++) {
+        const timerValue = Math.floor(Math.random() * 4) + 1;
+        var light = new Light(
+          $('body').width() * Math.random() - 500,
+          0,
+          timerValue * 1000
+        );
+
+        const lightTypes = ['purple', 'yellow', 'blue'];
+        const randomIndex = Math.floor(Math.random() * lightTypes.length - 1) + 1;
+        const selectedLight = lightTypes[randomIndex];
+
+        light.$node.css('background-image', `url(assets/${selectedLight}.png)`);
+
+        light.$node.css('z-index', 1500);
+
+        $('body').append(light.$node);
+
+        window.lights.push(light);
+      }
+    } else {
+      window.lights.map((light) => light.$node.remove())
+      window.lights = []
+    }
+  });
+
   $('.addDancerButton').on('click', function(event) {
-    var dancerMakerFunctionName = $(this).data('dancer-maker-function-name');
-    var dancerMakerFunction = window[dancerMakerFunctionName];
-    makeDancer(dancerMakerFunction);
+    if (window.dancers.length <= 15) {
+      var dancerMakerFunctionName = $(this).data('dancer-maker-function-name');
+      var dancerMakerFunction = window[dancerMakerFunctionName];
+      makeDancer(dancerMakerFunction);
+    }
   });
 
   $('#civil-war').on('click', function(event) {
