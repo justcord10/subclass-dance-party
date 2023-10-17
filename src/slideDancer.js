@@ -6,7 +6,7 @@ MakeSlideDancer.prototype = Object.create(MakeDancer.prototype);
 MakeSlideDancer.prototype.constructor = MakeSlideDancer;
 MakeSlideDancer.prototype.step = function() {
   MakeDancer.prototype.step.call(this);
-  this.$node.toggle();
+  this.$node.toggleClass('mirrored');
 };
 // toggle() is a jQuery method to show/hide the <span> tag.
 // See http://api.jquery.com/category/effects/ for this and

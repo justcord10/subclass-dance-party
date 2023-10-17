@@ -6,7 +6,7 @@ MakeBouncyDancer.prototype = Object.create(MakeDancer.prototype);
 MakeBouncyDancer.prototype.constructor = MakeBouncyDancer;
 MakeBouncyDancer.prototype.step = function() {
   MakeDancer.prototype.step.call(this);
-  //this.$node.toggle();
+  this.$node.toggleClass('bouncyDancer');
 };
 // toggle() is a jQuery method to show/hide the <span> tag.
 // See http://api.jquery.com/category/effects/ for this and
