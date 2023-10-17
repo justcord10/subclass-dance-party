@@ -17,7 +17,7 @@ $(document).ready(function() {
     dancer.$node.css('background-image', `url(assets/images/${dancerName}.png)`);
 
     const zIndex = Math.floor(dancer.top);
-    dancer.$node.css('z-index', zIndex)
+    dancer.$node.css('z-index', zIndex);
 
     $('.dancefloor').append(dancer.$node);
 
@@ -53,14 +53,14 @@ $(document).ready(function() {
       hero1.$node.animate({
         top: `${top}px`,
         left: `${left - 50}px`
-      }, 2000)
+      }, 2000);
 
       hero2.$node.animate({
         top: `${top}px`,
         left: `${left + 50}px`
-      }, 2000)
+      }, 2000);
 
-    };
+    }
 
     setTimeout(() => {
       window.dancers = window.dancers.filter((dancer) => {
@@ -69,9 +69,23 @@ $(document).ready(function() {
           return false;
         } else {
           return true;
-        };
-      })
+        }
+      });
     }, 5000);
+  });
+
+  $('#assemble').on('click', function(event) {
+    const allDancers = window.dancers;
+    let leftTracker = 0;
+    const gapDifference = $('.dancefloor').width() / window.dancers.length;
+
+    for (let i = 0; i < allDancers.length; i++) {
+      allDancers[i].$node.animate({
+        top: 0,
+        left: `${leftTracker}px`
+      }, 2000);
+      leftTracker += gapDifference;
+    }
   });
 });
 
