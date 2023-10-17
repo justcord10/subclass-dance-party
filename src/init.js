@@ -1,47 +1,32 @@
 $(document).ready(function() {
   window.dancers = [];
 
-const makeDancer = (dancerType) => {
-  // make a dancer with a random position
-  var dancer = new dancerType(
-    $(".dancefloor").height() * Math.random(),
-    $(".dancefloor").width() * Math.random(),
-    Math.random() * 1000
-  );
+  const makeDancer = (dancerType) => {
+    var dancer = new dancerType(
+      $('.dancefloor').height() * Math.random(),
+      $('.dancefloor').width() * Math.random(),
+      Math.random() * 1000
+    );
 
-  const dancerNames = ["Ant_Man", "Black_Panther", "Cpt_America", "Dead_Pool",
-    "Dr_Strange", "Falcon", "Fury", "Hawk_Eye", "Hulk", "Iron_Man", "Spider_Man",
-    "Thor", "Wasp", "Wong"];
-  const randomIndex = Math.floor(Math.random() * dancerNames.length - 1) + 1;
-  const dancerName = dancerNames[randomIndex];
+    const dancerNames = ['Ant_Man', 'Black_Panther', 'Cpt_America', 'Dead_Pool',
+      'Dr_Strange', 'Falcon', 'Fury', 'Hawk_Eye', 'Hulk', 'Iron_Man', 'Spider_Man',
+      'Thor', 'Wasp', 'Wong'];
+    const randomIndex = Math.floor(Math.random() * dancerNames.length - 1) + 1;
+    const dancerName = dancerNames[randomIndex];
 
-  dancer.$node.css('background-image', `url(assets/images/${dancerName}.png)`);
-  $('.dancefloor').append(dancer.$node);
+    dancer.$node.css('background-image', `url(assets/images/${dancerName}.png)`);
 
-  window.dancers.push(dancer);
-}
+    const zIndex = Math.floor(dancer.top);
+    dancer.$node.css('z-index', zIndex)
+
+    $('.dancefloor').append(dancer.$node);
+
+    window.dancers.push(dancer);
+  };
 
   $('.addDancerButton').on('click', function(event) {
-    /* This function sets up the click handlers for the create-dancer
-     * buttons on dancefloor.html. You should only need to make one small change to it.
-     * As long as the "data-dancer-maker-function-name" attribute of a
-     * class="addDancerButton" DOM node matches one of the names of the
-     * maker functions available in the global scope, clicking that node
-     * will call the function to make the dancer.
-     */
-
-    /* dancerMakerFunctionName is a string which must match
-     * one of the dancer maker functions available in global scope.
-     * A new object of the given type will be created and added
-     * to the stage.
-     */
-
     var dancerMakerFunctionName = $(this).data('dancer-maker-function-name');
-
-    // get the maker function for the kind of dancer we're supposed to make
     var dancerMakerFunction = window[dancerMakerFunctionName];
-
-
     makeDancer(dancerMakerFunction);
   });
 
@@ -49,13 +34,44 @@ const makeDancer = (dancerType) => {
     if (window.dancers.length % 2 === 1) {
       makeDancer(MakeBouncyDancer);
     }
-    for (let i = 0; i < window.dancers.length; i += 2) {
+    const allDancers = window.dancers;
+    for (let i = 0; i < allDancers.length; i += 2) {
+      var top = $('.dancefloor').height() * Math.random();
+      var left = $('.dancefloor').width() * Math.random();
+      const hero1 = allDancers[i];
+      const hero2 = allDancers[i + 1];
+      hero1.battleNumber = Math.random();
+      hero2.battleNumber = Math.random();
+      if (hero1.battleNumber > hero2.battleNumber) {
+        hero1.victory = true;
+        hero2.victory = false;
+      } else {
+        hero2.victory = true;
+        hero1.victory = false;
+      }
 
+      hero1.$node.animate({
+        top: `${top}px`,
+        left: `${left - 50}px`
+      }, 2000)
 
-      var height = $(".dancefloor").height() * Math.random();
-      var width = $(".dancefloor").width() * Math.random();
+      hero2.$node.animate({
+        top: `${top}px`,
+        left: `${left + 50}px`
+      }, 2000)
 
-    }
+    };
+
+    setTimeout(() => {
+      window.dancers = window.dancers.filter((dancer) => {
+        if (dancer.victory === false) {
+          dancer.$node.remove();
+          return false;
+        } else {
+          return true;
+        };
+      })
+    }, 5000);
   });
 });
 
