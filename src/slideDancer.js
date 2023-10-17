@@ -1,10 +1,10 @@
-var MakeBlinkyDancer = function(top, left, timeBetweenSteps) {
+var MakeSlideDancer = function(top, left, timeBetweenSteps) {
   MakeDancer.call(this, top, left, timeBetweenSteps);
 };
 
-MakeBlinkyDancer.prototype = Object.create(MakeDancer.prototype);
-MakeBlinkyDancer.prototype.constructor = MakeBlinkyDancer;
-MakeBlinkyDancer.prototype.step = function() {
+MakeSlideDancer.prototype = Object.create(MakeDancer.prototype);
+MakeSlideDancer.prototype.constructor = MakeSlideDancer;
+MakeSlideDancer.prototype.step = function() {
   MakeDancer.prototype.step.call(this);
   this.$node.toggle();
 };
