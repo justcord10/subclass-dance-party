@@ -35,9 +35,13 @@ $(document).ready(function() {
   });
 
   $('#civil-war').on('click', function(event) {
+
+    $('#civil-war').prop('disabled', true);
+
     if (window.dancers.length % 2 === 1) {
       makeDancer(MakeBouncyDancer);
     }
+
     const allDancers = window.dancers;
     for (let i = 0; i < allDancers.length; i += 2) {
       var top = $('.dancefloor').height() * Math.random();
@@ -63,6 +67,10 @@ $(document).ready(function() {
         top: `${top}px`,
         left: `${left + 50}px`
       }, 2000);
+
+      setTimeout(() => {
+        $('#civil-war').prop('disabled', false);
+      }, 5000);
 
     }
 
