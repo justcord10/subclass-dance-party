@@ -19,6 +19,10 @@ $(document).ready(function() {
     const zIndex = Math.floor(dancer.top);
     dancer.$node.css('z-index', zIndex);
 
+    dancer.$node.on('mouseover', function() {
+      dancer.runAway();
+    });
+
     $('.dancefloor').append(dancer.$node);
 
     window.dancers.push(dancer);

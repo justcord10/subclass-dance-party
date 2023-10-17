@@ -8,6 +8,7 @@ var MakeDancer = function(top, left, timeBetweenSteps) {
   this.left = left;
   this.battleNumber = 0;
   this.victory = false;
+  this.running = false;
   this.setPosition(top, left);
   this.step();
 };
@@ -22,4 +23,21 @@ MakeDancer.prototype.setPosition = function(top, left) {
     left: left
   };
   this.$node.css(styleSettings);
+};
+
+MakeDancer.prototype.runAway = function() {
+  if (!this.running) {
+    this.running = true;
+    const newLeft = $('.dancefloor').width() * Math.random();
+    const newTop = $('.dancefloor').height() * Math.random();
+
+    this.$node.animate({
+      top: `${newTop}px`,
+      left: `${newLeft}px`
+    }, 2000);
+
+    setTimeout(() => {
+      this.running = false;
+    }, 2000);
+  }
 };
