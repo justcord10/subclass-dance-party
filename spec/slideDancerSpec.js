@@ -12,8 +12,10 @@ describe('slideDancer', function() {
     expect(slideDancer.$node).to.be.an.instanceof(jQuery);
   });
 
-  it('should have a step function that makes its node slide', function() {
-
+  it('should have have called "toggleClass" from slideDancer', function() {
+    sinon.spy(slideDancer.$node, 'toggleClass');
+    slideDancer.step();
+    expect(slideDancer.$node.toggleClass.called).to.be.true;
   });
 
   describe('dance', function() {
